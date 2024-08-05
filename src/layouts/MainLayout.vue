@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="lHh Lpr lFf" >
+    <q-header elevated >
       <q-toolbar>
         <q-btn
           flat
@@ -12,13 +12,19 @@
         />
 
         <q-toolbar-title> Ranking 2024 </q-toolbar-title>
-
-        <div>{{currentDateTime}}</div>
+        <q-btn
+          flat
+          round
+          icon="brightness_6"
+          @click="toggleDarkMode"
+          :label="darkMode ? 'Light Mode' : 'Dark Mode'"
+        />
+        <!-- <div>{{currentDateTime}}</div> -->
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered >
+      <q-list >
         <q-item-label header> Menu </q-item-label>
 
         <EssentialLink
@@ -37,14 +43,21 @@
 </template>
 
 <script setup>
-import { ref} from "vue";
+import {ref} from "vue";
 import EssentialLink from "components/EssentialLink.vue";
+import { Dark } from 'quasar';
+
 
 defineOptions({
   name: "MainLayout",
 });
 const currentDateTime = ref(new Date().toLocaleString());
+const darkMode = ref(Dark.isActive);
 
+const toggleDarkMode = () => {
+  Dark.set(!darkMode.value);
+  darkMode.value = !darkMode.value;
+};
 setInterval(() => {
   currentDateTime.value = new Date().toLocaleString();
 }, 1000);
@@ -78,6 +91,12 @@ const linksList = [
     caption: "The best Photos",
     icon: "photo",
     link: "Photos",
+  },
+  {
+    title: "Videos",
+    caption: "The best Videos",
+    icon: "videocam",
+    link: "Videos",
   },
   {
     title: "Instagram",

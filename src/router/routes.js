@@ -29,6 +29,11 @@ const routes = [
         component: () => import("pages/ChatPage.vue"),
       },
       {
+        name: "video",
+        path: "Videos",
+        component: () => import("pages/VideoPage.vue"),
+      },
+      {
         name: "instagram",
         path: "Instagram",
         component: () => import("pages/InstagramPage.vue"),
