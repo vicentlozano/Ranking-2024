@@ -1,9 +1,8 @@
 <template>
   <q-item
     clickable
-    tag="a"
-    target="_blank"
-    :href="props.link"
+    tag="router-link"
+    :to="props.link"
   >
     <q-item-section
       v-if="props.icon"
@@ -17,6 +16,14 @@
       <q-item-label caption>{{ props.caption }}</q-item-label>
     </q-item-section>
   </q-item>
+
+  <q-list v-if="props.children && props.children.length">
+    <EssentialLink
+      v-for="child in props.children"
+      :key="child.title"
+      v-bind="child"
+    />
+  </q-list>
 </template>
 
 <script setup>
@@ -43,6 +50,11 @@ const props = defineProps({
   icon: {
     type: String,
     default: ''
+  },
+
+  children: {
+    type: Array,
+    default: () => []
   }
 })
 </script>
