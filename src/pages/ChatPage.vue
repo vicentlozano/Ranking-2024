@@ -1,8 +1,9 @@
 <template>
-    <h1>Chat Page</h1>
+    <chatMessage/>
 </template>
 
 <script setup>
+import chatMessage from 'src/components/chatMessage.vue';
 </script>
 <style scoped>
 </style>

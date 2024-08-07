@@ -38,8 +38,19 @@ const routes = [
         path: "Instagram",
         component: () => import("pages/InstagramPage.vue"),
       },
+      {
+        name: 'signup',
+        path: "Signup",
+        component: () => import("pages/SignupPage.vue"),
+      },
+      {
+        name: 'login',
+        path: "Login",
+        component: () => import("pages/LoginPage.vue"),
+      },
     ],
   },
+  
 
   // Always leave this as last one,
   // but you can also remove it

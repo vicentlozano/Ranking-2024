@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf" >
-    <q-header elevated >
+  <q-layout view="lHh Lpr lFf">
+    <q-header elevated>
       <q-toolbar>
         <q-btn
           flat
@@ -10,21 +10,24 @@
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
-
         <q-toolbar-title> Ranking 2024 </q-toolbar-title>
-        <q-btn
-          flat
-          round
-          icon="brightness_6"
-          @click="toggleDarkMode"
-          :label="darkMode ? 'Light Mode' : 'Dark Mode'"
-        />
+        <q-btn-group push flat class="q-mr-md"  v-if="!isLogged">
+          <q-btn flat rounded :to="'Signup'" :label="'sign up'" />
+          <q-btn outline rounded :to="'Login'" :label="'Log in'" />
+        </q-btn-group>
+          <q-btn
+            flat
+            icon="brightness_6"
+            @click="toggleDarkMode"
+            :label="darkMode ? 'Light Mode' : 'Dark Mode'"
+          />
+       
         <!-- <div>{{currentDateTime}}</div> -->
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered >
-      <q-list >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
+      <q-list>
         <q-item-label header> Menu </q-item-label>
 
         <EssentialLink
@@ -36,17 +39,17 @@
       </q-list>
     </q-drawer>
 
-    <q-page-container>
-      <router-view />
+    <q-page-container class="flex flex-center q-pa-md">
+        <router-view />
+      <!-- Tu contenido aquí -->
     </q-page-container>
   </q-layout>
 </template>
 
 <script setup>
-import {ref} from "vue";
+import { ref } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
-import { Dark } from 'quasar';
-
+import { Dark } from "quasar";
 
 defineOptions({
   name: "MainLayout",
@@ -58,6 +61,8 @@ const toggleDarkMode = () => {
   Dark.set(!darkMode.value);
   darkMode.value = !darkMode.value;
 };
+
+const isLogged = false;
 setInterval(() => {
   currentDateTime.value = new Date().toLocaleString();
 }, 1000);
