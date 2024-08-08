@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md" style="max-width: 400px">
-    <q-form @submit="onSubmit"  class="q-gutter-md">
+    <q-form @submit="signup"  class="q-gutter-md">
       <q-input
         outlined
         v-model="emailAdress"
@@ -33,7 +33,7 @@
       <q-toggle v-model="accept" label="I accept the license and terms" />
 
       <div>
-        <q-btn label="Submit" type="submit" color="primary" />
+        <q-btn label="Register" type="submit" color="primary"/>
         <q-btn
           label="Reset"
           type="reset"
@@ -48,8 +48,13 @@
 
 <script setup>
 import {ref} from 'vue';
+import { useAuthStore } from 'src/stores/auth';
+const authStore = useAuthStore();
 const emailAdress = ref(null);
 const password = ref(null)
+const signup = () => {
+authStore.signup(emailAdress.value,password.value)
+}
 </script>
 
 

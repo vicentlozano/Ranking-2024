@@ -15,6 +15,8 @@
           <q-btn flat rounded :to="'Signup'" :label="'sign up'" />
           <q-btn outline rounded :to="'Login'" :label="'Log in'" />
         </q-btn-group>
+        <q-btn v-else flat rounded  :to="'home'" @click="logout" :label="'log out'" />
+
           <q-btn
             flat
             icon="brightness_6"
@@ -47,9 +49,10 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref,computed } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
 import { Dark } from "quasar";
+import { useAuthStore } from 'src/stores/auth';
 
 defineOptions({
   name: "MainLayout",
@@ -61,8 +64,11 @@ const toggleDarkMode = () => {
   Dark.set(!darkMode.value);
   darkMode.value = !darkMode.value;
 };
-
-const isLogged = false;
+const authStore = useAuthStore();
+const isLogged = computed(() => authStore.isLogged);
+const logout = () => {
+  authStore.logout();
+}
 setInterval(() => {
   currentDateTime.value = new Date().toLocaleString();
 }, 1000);
