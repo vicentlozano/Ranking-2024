@@ -1,6 +1,6 @@
 <template>
-  <div class="q-pa-md" style="max-width: 400px">
-    <q-form @submit="signup"  class="q-gutter-md">
+  <div class="q-pa-md q-mt-lg form">
+    <q-form @submit="signup" class="q-gutter-md">
       <q-input
         outlined
         v-model="emailAdress"
@@ -19,21 +19,30 @@
       />
 
       <q-input
-        outlined
-        type="password"
         v-model="password"
+        outlined
+        :type="isPwd ? 'password' : 'text'"
+        stack-label
         label="Password"
-        placeholder="Password"
-        lazy-rules
-        :rules="[ 
-          val => val && val.length > 5 && /^(?=.*[A-Z])(?=.*\d).+$/.test(val) || 'Password must be at least 6 characters long, contain at least one uppercase letter and one number'
+        :rules="[
+          (val) =>
+            (val && val.length > 5 && /^(?=.*[A-Z])(?=.*\d).+$/.test(val)) ||
+            'Password must be at least 6 characters long, contain at least one uppercase letter and one number',
         ]"
-      />
+      >
+        <template v-slot:append>
+          <q-icon
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          />
+        </template>
+      </q-input>
 
       <q-toggle v-model="accept" label="I accept the license and terms" />
 
       <div>
-        <q-btn label="Register" type="submit" color="primary"/>
+        <q-btn label="Register" type="submit" color="primary" />
         <q-btn
           label="Reset"
           type="reset"
@@ -47,16 +56,25 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
-import { useAuthStore } from 'src/stores/auth';
+import { ref } from "vue";
+import { useAuthStore } from "src/stores/auth";
+import { useRouter } from "vue-router";
+import { Notify } from "quasar";
+const router = useRouter();
 const authStore = useAuthStore();
 const emailAdress = ref(null);
-const password = ref(null)
-const signup = () => {
-authStore.signup(emailAdress.value,password.value)
-}
+const password = ref(null);
+const isPwd = ref(true);
+const signup = async () => {
+  
+    console.log("Attempting to sign up with email:", emailAdress.value);
+    await authStore.signup(emailAdress.value, password.value);
+};
 </script>
 
-
-
-<style scoped></style>
+<style scoped>
+.form {
+  max-width: 700px;
+  min-width: 300px;
+}
+</style>

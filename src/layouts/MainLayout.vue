@@ -12,8 +12,8 @@
         />
         <q-toolbar-title> Ranking 2024 </q-toolbar-title>
         <q-btn-group push flat class="q-mr-md"  v-if="!isLogged">
-          <q-btn flat rounded :to="'Signup'" :label="'sign up'" />
-          <q-btn outline rounded :to="'Login'" :label="'Log in'" />
+          <q-btn flat rounded :to="'Signup'" :label="'sign up'"   />
+          <q-btn flat rounded  :to="'Login'" :label="'Log in'" />
         </q-btn-group>
         <q-btn v-else flat rounded  :to="'home'" @click="logout" :label="'log out'" />
 
@@ -49,10 +49,12 @@
 </template>
 
 <script setup>
-import { ref,computed } from "vue";
+import { ref,computed,onMounted } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
 import { Dark } from "quasar";
 import { useAuthStore } from 'src/stores/auth';
+import { auth } from "../utils/firebase/firebaseConfig";
+
 
 defineOptions({
   name: "MainLayout",
@@ -122,4 +124,19 @@ const leftDrawerOpen = ref(false);
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
+onMounted(() => {
+  authStore.onAuthStateChanged(auth, (firebaseUser) => {
+    if (firebaseUser) {
+      authStore.user = firebaseUser;
+      authStore.isLogged = true;
+      authStore.isEmailVerified = firebaseUser.emailVerified;
+    } else {
+      authStore.user = null;
+      authStore.isLogged = false;
+      authStore.isEmailVerified = false;
+    }
+  });
+});
 </script>
+<style scoped>
+</style>

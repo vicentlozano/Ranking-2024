@@ -4,7 +4,6 @@
       <q-input
         outlined
         v-model="emailAdress"
-        stack-label
         label="Email Adress"
         type="email"
         placeholder="name@domain.com"
@@ -46,18 +45,23 @@
 
 <script setup>
 import { ref } from "vue";
-import { useAuthStore } from 'src/stores/auth';
+import { useAuthStore } from "src/stores/auth";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const authStore = useAuthStore();
 const emailAdress = ref(null);
 const password = ref(null);
 const isPwd = ref(true);
-const signup = () => {
-    authStore.login(emailAdress.value, password.value);
-}
+const signup = async () => {
+  await authStore.login(emailAdress.value, password.value);
+};
 </script>
 
 <style scoped>
 .form {
-  max-width: 700px;
+  max-width: 400px;
+  min-width: 300px;
+
 }
+
 </style>
