@@ -11,20 +11,18 @@
           @click="toggleLeftDrawer"
         />
         <q-toolbar-title> Ranking 2024 </q-toolbar-title>
-        <q-btn-group push flat class="q-mr-md"  v-if="!isLogged">
-          <q-btn flat rounded :to="'Signup'" :label="'sign up'"   />
-          <q-btn flat rounded  :to="'Login'" :label="'Log in'" />
+        <q-btn-group push flat class="q-mr-md" v-if="!loading && !isLogged">
+          <q-btn flat rounded :to="'Signup'" :label="'sign up'" />
+          <q-btn flat rounded :to="'Login'" :label="'Log in'" />
         </q-btn-group>
-        <q-btn v-else flat rounded  :to="'home'" @click="logout" :label="'log out'" />
+        <q-btn v-if="loading || isLogged" flat rounded :to="'home'" @click="logout" :label="'log out'" />
 
-          <q-btn
-            flat
-            icon="brightness_6"
-            @click="toggleDarkMode"
-            :label="darkMode ? 'Light Mode' : 'Dark Mode'"
-          />
-       
-        <!-- <div>{{currentDateTime}}</div> -->
+        <q-btn
+          flat
+          icon="brightness_6"
+          @click="toggleDarkMode"
+          :label="darkMode ? 'Light Mode' : 'Dark Mode'"
+        />
       </q-toolbar>
     </q-header>
 
@@ -42,38 +40,43 @@
     </q-drawer>
 
     <q-page-container class="flex flex-center q-pa-md">
-        <router-view />
-      <!-- Tu contenido aquí -->
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script setup>
-import { ref,computed,onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import EssentialLink from "components/EssentialLink.vue";
 import { Dark } from "quasar";
 import { useAuthStore } from 'src/stores/auth';
 import { auth } from "../utils/firebase/firebaseConfig";
-
+import { onAuthStateChanged } from "firebase/auth";
 
 defineOptions({
   name: "MainLayout",
 });
+
 const currentDateTime = ref(new Date().toLocaleString());
 const darkMode = ref(Dark.isActive);
+const loading = ref(true); // Bandera de carga
 
 const toggleDarkMode = () => {
   Dark.set(!darkMode.value);
   darkMode.value = !darkMode.value;
 };
+
 const authStore = useAuthStore();
 const isLogged = computed(() => authStore.isLogged);
+
 const logout = () => {
   authStore.logout();
-}
+};
+
 setInterval(() => {
   currentDateTime.value = new Date().toLocaleString();
 }, 1000);
+
 const linksList = [
   {
     title: "Inicio",
@@ -124,8 +127,9 @@ const leftDrawerOpen = ref(false);
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
+
 onMounted(() => {
-  authStore.onAuthStateChanged(auth, (firebaseUser) => {
+  onAuthStateChanged(auth, (firebaseUser) => {
     if (firebaseUser) {
       authStore.user = firebaseUser;
       authStore.isLogged = true;
@@ -135,8 +139,10 @@ onMounted(() => {
       authStore.isLogged = false;
       authStore.isEmailVerified = false;
     }
+    loading.value = false; // Cambiar la bandera de carga a false
   });
 });
 </script>
+
 <style scoped>
 </style>
