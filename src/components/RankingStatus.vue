@@ -26,7 +26,7 @@
         </q-item-section>
         <q-item-section avatar>
           <q-avatar>
-            <img :src="`https://cdn.quasar.dev/img/${contact.avatar}`" />
+            <img :src="require(`../assets/avatars/${contact.avatar}`)" />
           </q-avatar>
         </q-item-section>
         <q-item-section>
@@ -41,47 +41,45 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      offline: [
+<script setup>
+
+      const offline =  [
         {
           id: 1,
-          name: "John Doe",
-          email: "john@example.com",
-          avatar: "avatar1.jpg",
+          name: "Vicent",
+          email: "lozanodroid@gmail.com",
+          avatar: "Vicent.jpg",
         },
         {
           id: 2,
-          name: "Jane Doe",
+          name: "Jose",
           email: "jane@example.com",
-          avatar: "avatar2.jpg",
+          avatar: "Jose.jpg",
         },
         {
           id: 3,
-          name: "Sam Smith",
+          name: "Pedro",
           email: "sam@example.com",
-          avatar: "avatar3.jpg",
+          avatar: "Pedro.jpg",
         },
-      ],
-    };
-  },
-  methods: {
-    getIconName(index) {
+      ]
+    
+  
+ 
+    const getIconName =(index)=> {
       if (index === 0) return "emoji_events";
       if (index === 1) return "looks_two";
       if (index === 2) return "looks_3";
       return "star";
-    },
-    getIconColor(index) {
+    }
+   const getIconColor = (index)=>{
       if (index === 0) return "gold";
       if (index === 1) return "silver";
       if (index === 2) return "bronze";
       return "grey";
-    },
-  },
-};
+    }
+  
+
 </script>
 
 <style scoped>

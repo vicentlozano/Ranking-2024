@@ -3,8 +3,8 @@
     <RankingStatus/>
   </Section>
   <section class="grid">
-    <ImageCard />
-    <ImageCard />
+    <ImageCard :specie="'Sargo'" :avatar="'Pedro.jpg'" :name="'Pedro'" :img="'Sargo.jpg'" :cm="28" :location="'Javea'"/>
+    <ImageCard :specie="'Mero'" :avatar="'Vicent.jpg'" :name="'Vicent'" :img="'Mero.jpg'" :cm="22" :location="'Punta Estrella'"/>
     <ImageCard />
     <ImageCard />
     <ImageCard />
