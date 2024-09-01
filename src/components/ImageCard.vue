@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md row items-start q-gutter-md">
     <q-card class="my-card" flat bordered>
-      <q-img :src="imageSrc"  class="fish-image"/>
+      <q-img :src="imageSrc"  class="fish-image" lazy/>
 
       <q-card-section>
         <div class="text-overline text-orange-9">{{ specie }}</div>
@@ -11,9 +11,11 @@
           </q-avatar>
           <div class="custom-name">{{ name }}</div>
         </div>
-        <div class="text-caption text-grey">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <div class="text-caption text-primary">
+          Spot: {{ location }}
+        </div>
+        <div class="text-caption text-secondary">
+          Tamaño: {{ cm }} cm
         </div>
       </q-card-section>
 
@@ -79,7 +81,7 @@ const imageSrc = computed(() => {
 <style scoped>
 .my-card {
   width: 100%;
-  max-width: 350px;
+  min-width: 350px
 }
 .custom-name{
 font-size: 0.8rem;
@@ -88,5 +90,11 @@ font-size: 0.8rem;
   object-fit: contain;
   width: 100%;
   height: 250px;
+}
+@media(max-width: 790px){
+  .my-card {
+  width: 100%;
+  min-width: 400px;
+}
 }
 </style>
