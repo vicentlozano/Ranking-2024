@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <Section class="ranking">
+    <section class="ranking">
       <RankingStatus />
-    </Section>
+    </section>
     <section class="grid">
       <ImageCard
         :specie="'Sargo'"
@@ -10,7 +10,10 @@
         :name="'Pedro'"
         :img="'Sargo.jpg'"
         :cm="28"
-        :location="'Javea'"
+        :location="'Cala Portichol'"
+        :lure="'ZipBaits Hickory'"
+        :date="new Date('2024-08-10')"
+
       />
       <ImageCard
         :specie="'Mero'"
@@ -18,7 +21,10 @@
         :name="'Vicent'"
         :img="'MeroVicent.jpg'"
         :cm="22"
-        :location="'Punta Estrella'"
+        :location="'Cala Punta Estrella'"
+        :lure="'Nano Rubber'"
+        :date="new Date('2024-08-10')"
+
       />
       <ImageCard
         :specie="'Aguja'"
@@ -26,7 +32,10 @@
         :name="'Vicent'"
         :img="'AgujaVicent.jpg'"
         :cm="80"
-        :location="'Morro Toix'"
+        :location="'Morro de Toix'"
+        :lure="'Bassday Sugarpen'"
+        :date="new Date('2024-08-10')"
+
       />
       <ImageCard
         :specie="'Dentón'"
@@ -35,6 +44,8 @@
         :img="'DentonVicent.jpg'"
         :cm="28"
         :location="'Cantal Roig'"
+        :lure="'ZipBaits Hickory'"
+        :date="new Date('2024-08-10')"
       />
       <ImageCard
         :specie="'Dorada'"
@@ -43,6 +54,8 @@
         :img="'DoradaVicent.jpg'"
         :cm="25"
         :location="'Cala Alga'"
+        :lure="'ZipBaits Hickory'"
+        :date="new Date('2024-08-10')"
       />
       <ImageCard
         :specie="'Golfás'"
@@ -50,7 +63,9 @@
         :name="'Vicent'"
         :img="'GolfasVicent.jpg'"
         :cm="28"
-        :location="'Morro Toix'"
+        :location="'Morro de Toix'"
+        :lure="'Bassday SPM'"
+        :date="new Date('2024-08-10')"
       />
       <ImageCard
         :specie="'Palometón'"
@@ -58,7 +73,9 @@
         :name="'Vicent'"
         :img="'PalometonVicent.jpg'"
         :cm="50"
-        :location="'Morro Toix'"
+        :location="'Morro de Toix'"
+        :lure="'Megabass dig-x junior'"
+        :date="new Date('2024-08-10')"
       />
       <ImageCard
         :specie="'Lubina'"
@@ -67,6 +84,8 @@
         :img="'LubinaVicent.jpg'"
         :cm="40"
         :location="'Cala Alga'"
+        :lure="'ZipBaits Hickory'"
+        :date="new Date('2024-08-10')"
       />
     </section>
   </div>
